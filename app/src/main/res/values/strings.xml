@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">WeatherApp2026</string>
+    <string name="app_name">Weather App</string>
+    <string name="placeholder_result">Placeholder result text</string>
 </resources>

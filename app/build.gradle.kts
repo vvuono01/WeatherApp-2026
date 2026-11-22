@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.vvuono.weatherapp2026"
+    namespace = "com.vvuono.weatherapp"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.vvuono.weatherapp2026"
+        applicationId = "com.vvuono.weatherapp"
         minSdk = 24
         targetSdk = 37
         versionCode = 1
@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

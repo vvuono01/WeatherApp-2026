@@ -1,4 +1,4 @@
-package com.vvuono.weatherapp2026.ui.theme
+package com.vvuono.weatherapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
