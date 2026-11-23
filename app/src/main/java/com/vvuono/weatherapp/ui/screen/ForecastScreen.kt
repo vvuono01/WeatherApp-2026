@@ -1,4 +1,4 @@
-package com.vvuono.weatherapp.ui.screens
+package com.vvuono.weatherapp.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.runtime.rxjava3.subscribeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.vvuono.weatherapp.R
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast
 import com.vvuono.weatherapp.viewmodel.forecast.ForecastViewModel
@@ -20,7 +20,7 @@ import com.vvuono.weatherapp.viewmodel.forecast.ForecastUiState
 
 @Composable
 fun ForecastScreen(
-    viewModel: ForecastViewModel = viewModel(),
+    viewModel: ForecastViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.subscribeAsState(ForecastUiState.Loading)
     when (val state = uiState) {

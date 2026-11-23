@@ -1,21 +1,17 @@
 package com.vvuono.weatherapp.api
 
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import com.vvuono.weatherapp.api.model.forecast.response.OpenMeteoForecastResponse
+import io.reactivex.rxjava3.core.Single
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-class OpenMeteoApi {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .build()
-
-    val service : OpenMeteoApiService by lazy {
-        retrofit.create(OpenMeteoApiService::class.java)
-    }
-
-    companion object {
-        private const val BASE_URL = "https://api.open-meteo.com/v1/"
-    }
+interface OpenMeteoApi {
+    @GET("forecast")
+    fun getForecast(
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Query("daily") fields: List<String>,
+        @Query("timezone") timezone: String,
+        @Query("forecast_days") days: Int
+    ): Single<OpenMeteoForecastResponse>
 }

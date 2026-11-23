@@ -3,7 +3,6 @@
 package com.vvuono.weatherapp.ui
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import com.vvuono.weatherapp.R
-import com.vvuono.weatherapp.ui.screens.ForecastScreen
+import com.vvuono.weatherapp.ui.screen.ForecastScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

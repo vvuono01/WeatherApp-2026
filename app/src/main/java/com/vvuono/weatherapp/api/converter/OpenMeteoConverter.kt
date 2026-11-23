@@ -8,8 +8,9 @@ import com.vvuono.weatherapp.data.model.forecast.response.ForecastDate
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastLocation
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastTemperature
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastTimezone
+import javax.inject.Inject
 
-class OpenMeteoConverter {
+class OpenMeteoConverter @Inject constructor() {
     fun convertForecast(response: OpenMeteoForecastResponse): Forecast {
         return Forecast(
             location = convertLocation(response),

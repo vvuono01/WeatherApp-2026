@@ -1,16 +1,19 @@
 package com.vvuono.weatherapp.viewmodel.forecast
 
 import androidx.lifecycle.ViewModel
-import com.vvuono.weatherapp.api.repository.OpenMeteoWeatherRepository
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.repository.WeatherRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import javax.inject.Inject
 
-class ForecastViewModel(
-    private val weatherRepository: WeatherRepository = OpenMeteoWeatherRepository()
+@HiltViewModel
+class ForecastViewModel @Inject constructor(
+    private val weatherRepository: WeatherRepository
 ) : ViewModel() {
     private val forecastParamsSubject = BehaviorSubject.create<RequestForecastParams>()
+
     val uiState: Observable<ForecastUiState> = forecastParamsSubject
         .flatMapSingle {
             weatherRepository.getForecast(it)
