@@ -2,6 +2,7 @@
 
 package com.vvuono.weatherapp.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -16,11 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.vvuono.weatherapp.ui.screens.HomeScreen
-import com.vvuono.weatherapp.viewmodel.WeatherViewModel
 import com.vvuono.weatherapp.R
+import com.vvuono.weatherapp.ui.screens.ForecastScreen
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WeatherApp() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -31,18 +31,9 @@ fun WeatherApp() {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {
-            val viewModel: WeatherViewModel = viewModel()
-            HomeScreen(
-                weatherUiState = viewModel.weatherUiState,
-                contentPadding = it,
-            )
+            ForecastScreen()
         }
     }
-}
-
-@Composable
-fun HomeScreen(contentPadding: PaddingValues) {
-    TODO("Not yet implemented")
 }
 
 @Composable
