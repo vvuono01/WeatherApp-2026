@@ -13,7 +13,6 @@ rxJava = "3.1.8"
 rxAndroid = "3.0.2"
 rxJavaCompose = "1.7.5"
 retrofit = "2.9.0"
-kotlinxSerialization = "1.8.10"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,4 +40,3 @@ retrofit-rxjava-adapter = { group = "com.squareup.retrofit2", name = "adapter-rx
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerialization" }
