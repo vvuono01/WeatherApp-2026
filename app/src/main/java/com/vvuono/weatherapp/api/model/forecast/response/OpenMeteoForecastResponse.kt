@@ -13,17 +13,3 @@ data class OpenMeteoForecastResponse(
     @SerializedName("daily_units") val dailyUnits: OpenMeteoDailyForecastUnits,
     @SerializedName("daily") val dailyValues: OpenMeteoDailyForecastValues
 )
-
-data class OpenMeteoDailyForecastUnits(
-    @SerializedName("time") val timezoneFormat: String,
-    @SerializedName("weather_code") val weatherCodeLabel: String,
-    @SerializedName("temperature_2m_max") val highTemperatureUnit: String,
-    @SerializedName("temperature_2m_min") val lowTemperatureUnit: String,
-)
-
-data class OpenMeteoDailyForecastValues(
-    @SerializedName("time") val dates: List<String>,
-    @SerializedName("weather_code") val weatherCodes: List<Int>,
-    @SerializedName("temperature_2m_max") val highTemperatures: List<Float>,
-    @SerializedName("temperature_2m_min") val lowTemperatures: List<Float>,
-)
