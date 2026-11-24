@@ -1,10 +1,12 @@
 package com.vvuono.weatherapp.viewmodel.forecast
 
 import androidx.lifecycle.ViewModel
+import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastLocation
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 
@@ -15,23 +17,18 @@ class ForecastViewModel @Inject constructor(
     private val forecastParamsSubject = BehaviorSubject.create<RequestForecastParams>()
 
     val uiState: Observable<ForecastUiState> = forecastParamsSubject
-        .flatMapSingle {
-            weatherRepository.getForecast(it)
+        .flatMapSingle { params ->
+            params.location?.let {
+                weatherRepository.getForecast(params)
+            } ?: Single.error(Exception("No location data was sent"))
         }
         .map<ForecastUiState> { forecast -> ForecastUiState.Success(forecast) }
         .onErrorReturn { ForecastUiState.Error }
 
-    init {
-        val latitude = 40.0612674 // TODO: Get from device location
-        val longitude = -75.3420312 // TODO: Get from device location
-        getForecastData(latitude, longitude)
-    }
-
-    fun getForecastData(latitude: Double, longitude: Double) {
+    fun getForecastData(location: RequestForecastLocation?) {
         forecastParamsSubject.onNext(
             RequestForecastParams(
-                latitude,
-                longitude,
+                location,
                 FORECAST_FIELDS,
                 FORECAST_TIMEZONE,
                 FORECAST_DAYS

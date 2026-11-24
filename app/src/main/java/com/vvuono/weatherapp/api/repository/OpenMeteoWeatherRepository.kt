@@ -15,9 +15,10 @@ class OpenMeteoWeatherRepository @Inject constructor(
     private val converter: OpenMeteoConverter
 ) : WeatherRepository {
     override fun getForecast(requestParams: RequestForecastParams): Single<Forecast> {
+        val location = requestParams.location!!
         return api.getForecast(
-            requestParams.latitude,
-            requestParams.longitude,
+            location.latitude,
+            location.longitude,
             requestParams.fields,
             requestParams.timezone,
             requestParams.days
