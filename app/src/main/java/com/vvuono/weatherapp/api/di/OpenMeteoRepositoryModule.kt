@@ -1,7 +1,7 @@
 package com.vvuono.weatherapp.api.di
 
-import com.vvuono.weatherapp.api.repository.OpenMeteoWeatherRepository
-import com.vvuono.weatherapp.data.repository.WeatherRepository
+import com.vvuono.weatherapp.api.repository.OpenMeteoForecastRepository
+import com.vvuono.weatherapp.data.repository.ForecastRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 abstract class OpenMeteoRepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindWeatherRepository(
-        openMeteoWeatherRepository: OpenMeteoWeatherRepository
-    ): WeatherRepository
+    abstract fun bindForecastRepository(
+        openMeteoForecastRepository: OpenMeteoForecastRepository
+    ): ForecastRepository
 }

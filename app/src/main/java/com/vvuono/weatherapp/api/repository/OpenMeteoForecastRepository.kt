@@ -4,18 +4,18 @@ import com.vvuono.weatherapp.api.OpenMeteoApi
 import com.vvuono.weatherapp.api.converter.OpenMeteoConverter
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast
+import com.vvuono.weatherapp.data.model.forecast.response.ForecastLocation
+import com.vvuono.weatherapp.data.repository.ForecastRepository
 import com.vvuono.weatherapp.data.repository.LocationRepository
-import com.vvuono.weatherapp.data.repository.WeatherRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class OpenMeteoWeatherRepository @Inject constructor(
+class OpenMeteoForecastRepository @Inject constructor(
     private val api: OpenMeteoApi,
     private val converter: OpenMeteoConverter,
     private val locationRepository: LocationRepository,
-) : WeatherRepository {
+) : ForecastRepository {
     override fun getForecast(requestParams: RequestForecastParams): Single<Forecast> {
         val location = requestParams.location!!
         return api.getForecast(
@@ -26,11 +26,17 @@ class OpenMeteoWeatherRepository @Inject constructor(
             requestParams.days
         )
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .flatMap { response ->
-                locationRepository.getLocationName(response.latitude, response.longitude)
+                locationRepository.getLocationName(location.latitude, location.longitude)
                     .map { locationName ->
-                        converter.convertForecast(response, locationName)
+                        Forecast(
+                            location = ForecastLocation(
+                                location.latitude,
+                                location.longitude,
+                                locationName
+                            ),
+                            dailyForecasts = converter.convertDailyForecasts(response)
+                        )
                     }
             }
     }

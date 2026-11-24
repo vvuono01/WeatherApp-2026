@@ -5,6 +5,8 @@ import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastLocation
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
@@ -16,12 +18,15 @@ class ForecastViewModel @Inject constructor(
 ) : ViewModel() {
     private val forecastParamsSubject = BehaviorSubject.create<RequestForecastParams>()
 
-    val uiState: Observable<ForecastUiState> = forecastParamsSubject
-        .flatMapSingle { params ->
+    val uiState: Flowable<ForecastUiState> = forecastParamsSubject
+        .toFlowable(BackpressureStrategy.LATEST)
+        .switchMap { params ->
             params.location?.let {
                 weatherRepository.getForecast(params)
-            } ?: Single.error(Exception("No location data was sent"))
+                    .mergeWith(weatherRepository.refreshForecast(params))
+            } ?: Flowable.error(Exception("No location data was sent"))
         }
+        .distinctUntilChanged()
         .map<ForecastUiState> { forecast -> ForecastUiState.Success(forecast) }
         .onErrorReturn { ForecastUiState.Error(it) }
 

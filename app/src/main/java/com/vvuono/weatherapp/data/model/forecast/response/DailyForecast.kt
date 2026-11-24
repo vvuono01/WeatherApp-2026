@@ -1,5 +1,9 @@
 package com.vvuono.weatherapp.data.model.forecast.response
 
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 data class DailyForecast(
     val date: String,
     val condition: WeatherCondition,
@@ -16,7 +20,18 @@ data class DailyForecast(
     }
 }
 
-data class ForecastTemperature(
-    val temperature: Float,
-    val unit: String
-)
+class DailyForecastConverter {
+    private val gson = Gson()
+
+    @TypeConverter
+    fun fromString(value: String?): List<DailyForecast> {
+        if (value == null) return emptyList()
+        val listType = object : TypeToken<List<DailyForecast>>() {}.type
+        return gson.fromJson(value, listType)
+    }
+
+    @TypeConverter
+    fun fromList(list: List<DailyForecast>?): String {
+        return gson.toJson(list ?: emptyList<DailyForecast>())
+    }
+}
