@@ -23,7 +23,7 @@ class ForecastViewModel @Inject constructor(
             } ?: Single.error(Exception("No location data was sent"))
         }
         .map<ForecastUiState> { forecast -> ForecastUiState.Success(forecast) }
-        .onErrorReturn { ForecastUiState.Error }
+        .onErrorReturn { ForecastUiState.Error(it) }
 
     fun getForecastData(location: RequestForecastLocation?) {
         forecastParamsSubject.onNext(

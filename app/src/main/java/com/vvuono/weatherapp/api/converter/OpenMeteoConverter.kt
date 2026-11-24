@@ -3,48 +3,33 @@ package com.vvuono.weatherapp.api.converter
 import com.vvuono.weatherapp.api.model.forecast.response.OpenMeteoForecastResponse
 import com.vvuono.weatherapp.data.model.forecast.response.DailyForecast
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast
-import com.vvuono.weatherapp.data.model.forecast.response.ForecastCode
-import com.vvuono.weatherapp.data.model.forecast.response.ForecastDate
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastLocation
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastTemperature
-import com.vvuono.weatherapp.data.model.forecast.response.ForecastTimezone
+import com.vvuono.weatherapp.data.model.forecast.response.WeatherCondition
 import javax.inject.Inject
 
 class OpenMeteoConverter @Inject constructor() {
-    fun convertForecast(response: OpenMeteoForecastResponse): Forecast {
+    fun convertForecast(response: OpenMeteoForecastResponse, locationName: String): Forecast {
         return Forecast(
-            location = convertLocation(response),
-            generationTimeMs = response.generationTimeMs,
-            utcOffsetSeconds = response.utcOffsetSeconds,
-            timezone = convertTimezone(response),
-            elevation = response.elevation,
+            location = convertLocation(response, locationName),
             dailyForecasts = convertDailyForecasts(response)
         )
     }
 
-    fun convertLocation(response: OpenMeteoForecastResponse): ForecastLocation {
-        return convertLocation(response.latitude, response.longitude)
+    fun convertLocation(response: OpenMeteoForecastResponse, locationName: String): ForecastLocation {
+        return convertLocation(response.latitude, response.longitude, locationName)
     }
 
-    private fun convertLocation(latitude: Double, longitude: Double): ForecastLocation {
-        return ForecastLocation(latitude, longitude)
-    }
-
-    fun convertTimezone(response: OpenMeteoForecastResponse): ForecastTimezone {
-        return convertTimezone(response.timezone, response.timezoneAbbreviation)
-    }
-
-    private fun convertTimezone(timezone: String, abbreviation: String): ForecastTimezone {
-        return ForecastTimezone(timezone, abbreviation)
+    private fun convertLocation(latitude: Double, longitude: Double, locationName: String): ForecastLocation {
+        return ForecastLocation(latitude, longitude, locationName)
     }
 
     fun convertDailyForecasts(response: OpenMeteoForecastResponse): List<DailyForecast> {
         return response.dailyValues.dates.mapIndexed { index, date ->
             DailyForecast(
-                date = convertDate(date, response.dailyUnits.timezoneFormat),
-                weatherCode = convertCode(
-                    response.dailyValues.weatherCodes[index],
-                    response.dailyUnits.weatherCodeLabel
+                date = date,
+                condition = convertCondition(
+                    response.dailyValues.weatherCodes[index]
                 ),
                 highTemperature = convertTemperature(
                     response.dailyValues.highTemperatures[index],
@@ -58,12 +43,8 @@ class OpenMeteoConverter @Inject constructor() {
         }
     }
 
-    private fun convertDate(date: String, format: String): ForecastDate {
-        return ForecastDate(date, format)
-    }
-
-    private fun convertCode(code: Int, label: String): ForecastCode {
-        return ForecastCode(code, label)
+    private fun convertCondition(code: Int): WeatherCondition {
+        return WeatherCondition.fromCode(code)
     }
 
     private fun convertTemperature(temperature: Float, unit: String): ForecastTemperature {

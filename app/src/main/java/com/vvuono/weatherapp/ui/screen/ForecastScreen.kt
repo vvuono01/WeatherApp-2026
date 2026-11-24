@@ -22,6 +22,9 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastLocation
+import com.vvuono.weatherapp.ui.screen.view.ForecastDisplayView
+import com.vvuono.weatherapp.ui.screen.view.ForecastErrorView
+import com.vvuono.weatherapp.ui.screen.view.ForecastLoadingView
 import com.vvuono.weatherapp.viewmodel.forecast.ForecastUiState
 import com.vvuono.weatherapp.viewmodel.forecast.ForecastViewModel
 
@@ -51,10 +54,10 @@ fun ForecastScreen(
     }
 
     when (val state = uiState) {
-        is ForecastUiState.Loading -> ForecastLoadingScreen(modifier = Modifier.fillMaxSize())
-        is ForecastUiState.Error -> ForecastErrorScreen(modifier = Modifier.fillMaxSize())
-        is ForecastUiState.Success -> ForecastDisplayScreen(
-            result = state.forecast,
+        is ForecastUiState.Loading -> ForecastLoadingView(modifier = Modifier.fillMaxSize())
+        is ForecastUiState.Error -> ForecastErrorView(error = state.error, modifier = Modifier.fillMaxSize())
+        is ForecastUiState.Success -> ForecastDisplayView(
+            forecast = state.forecast,
             innerPadding = innerPadding,
             modifier = Modifier.fillMaxWidth(),
         )
