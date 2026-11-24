@@ -5,38 +5,29 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rxjava3.subscribeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
-import com.vvuono.weatherapp.R
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastLocation
-import com.vvuono.weatherapp.data.model.forecast.response.Forecast
 import com.vvuono.weatherapp.viewmodel.forecast.ForecastUiState
 import com.vvuono.weatherapp.viewmodel.forecast.ForecastViewModel
 
 @Composable
 fun ForecastScreen(
+    innerPadding: PaddingValues,
     viewModel: ForecastViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -60,9 +51,13 @@ fun ForecastScreen(
     }
 
     when (val state = uiState) {
-        is ForecastUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
-        is ForecastUiState.Success -> DisplayScreen(state.forecast, modifier = Modifier.fillMaxSize())
-        is ForecastUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
+        is ForecastUiState.Loading -> ForecastLoadingScreen(modifier = Modifier.fillMaxSize())
+        is ForecastUiState.Error -> ForecastErrorScreen(modifier = Modifier.fillMaxSize())
+        is ForecastUiState.Success -> ForecastDisplayScreen(
+            result = state.forecast,
+            innerPadding = innerPadding,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 
     LaunchedEffect(Unit) {
@@ -110,43 +105,5 @@ private fun getCurrentLocation(
                     }
                 }
         }
-    }
-}
-
-@Composable
-private fun LoadingScreen(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator()
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(stringResource(R.string.weather_loading))
-        }
-    }
-}
-
-@Composable
-private fun DisplayScreen(result: Forecast?, modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Text(text = result?.toString() ?: stringResource(R.string.forecast_data_empty))
-    }
-}
-
-@Composable
-private fun ErrorScreen(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Text(stringResource(R.string.forecast_data_error))
     }
 }

@@ -26,11 +26,11 @@ fun WeatherApp() {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { WeatherTopAppBar(scrollBehavior = scrollBehavior) }
-    ) {
+    ) { innerPadding ->
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {
-            ForecastScreen()
+            ForecastScreen(innerPadding)
         }
     }
 }
