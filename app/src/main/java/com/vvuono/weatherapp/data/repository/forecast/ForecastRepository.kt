@@ -1,4 +1,4 @@
-package com.vvuono.weatherapp.data.repository
+package com.vvuono.weatherapp.data.repository.forecast
 
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast

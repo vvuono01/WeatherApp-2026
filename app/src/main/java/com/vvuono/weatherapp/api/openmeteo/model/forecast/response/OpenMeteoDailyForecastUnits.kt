@@ -1,4 +1,4 @@
-package com.vvuono.weatherapp.api.model.forecast.response
+package com.vvuono.weatherapp.api.openmeteo.model.forecast.response
 
 import com.google.gson.annotations.SerializedName
 

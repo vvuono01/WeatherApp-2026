@@ -19,7 +19,7 @@ import com.vvuono.weatherapp.R
 import com.vvuono.weatherapp.data.model.forecast.response.DailyForecast
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastLocation
-import com.vvuono.weatherapp.ui.elements.DailyForecastCard
+import com.vvuono.weatherapp.ui.screen.view.element.DailyForecastCard
 import com.vvuono.weatherapp.ui.theme.WeatherTheme
 
 @Composable

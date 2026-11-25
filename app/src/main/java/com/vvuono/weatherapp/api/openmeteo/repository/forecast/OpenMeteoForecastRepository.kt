@@ -1,12 +1,12 @@
-package com.vvuono.weatherapp.api.repository
+package com.vvuono.weatherapp.api.openmeteo.repository.forecast
 
-import com.vvuono.weatherapp.api.OpenMeteoApi
-import com.vvuono.weatherapp.api.converter.OpenMeteoConverter
+import com.vvuono.weatherapp.api.openmeteo.OpenMeteoApi
+import com.vvuono.weatherapp.api.openmeteo.converter.OpenMeteoConverter
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastLocation
-import com.vvuono.weatherapp.data.repository.ForecastRepository
-import com.vvuono.weatherapp.data.repository.LocationRepository
+import com.vvuono.weatherapp.data.repository.forecast.ForecastRepository
+import com.vvuono.weatherapp.data.repository.location.LocationRepository
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

@@ -1,6 +1,6 @@
-package com.vvuono.weatherapp.api
+package com.vvuono.weatherapp.api.openmeteo
 
-import com.vvuono.weatherapp.api.model.forecast.response.OpenMeteoForecastResponse
+import com.vvuono.weatherapp.api.openmeteo.model.forecast.response.OpenMeteoForecastResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

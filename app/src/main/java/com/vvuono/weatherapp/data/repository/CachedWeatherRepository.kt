@@ -3,6 +3,7 @@ package com.vvuono.weatherapp.data.repository
 import com.vvuono.weatherapp.data.model.forecast.dao.ForecastDao
 import com.vvuono.weatherapp.data.model.forecast.request.RequestForecastParams
 import com.vvuono.weatherapp.data.model.forecast.response.Forecast
+import com.vvuono.weatherapp.data.repository.forecast.ForecastRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import javax.inject.Inject

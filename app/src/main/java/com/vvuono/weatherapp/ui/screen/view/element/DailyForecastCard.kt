@@ -1,4 +1,4 @@
-package com.vvuono.weatherapp.ui.elements
+package com.vvuono.weatherapp.ui.screen.view.element
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

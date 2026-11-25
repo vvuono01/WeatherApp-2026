@@ -1,6 +1,6 @@
-package com.vvuono.weatherapp.api.converter
+package com.vvuono.weatherapp.api.openmeteo.converter
 
-import com.vvuono.weatherapp.api.model.forecast.response.OpenMeteoForecastResponse
+import com.vvuono.weatherapp.api.openmeteo.model.forecast.response.OpenMeteoForecastResponse
 import com.vvuono.weatherapp.data.model.forecast.response.DailyForecast
 import com.vvuono.weatherapp.data.model.forecast.response.ForecastTemperature
 import com.vvuono.weatherapp.data.model.forecast.response.WeatherCondition

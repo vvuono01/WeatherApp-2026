@@ -1,6 +1,6 @@
-package com.vvuono.weatherapp.api.di
+package com.vvuono.weatherapp.api.openmeteo.di
 
-import com.vvuono.weatherapp.api.OpenMeteoApi
+import com.vvuono.weatherapp.api.openmeteo.OpenMeteoApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,11 +1,11 @@
-package com.vvuono.weatherapp.location.repository
+package com.vvuono.weatherapp.api.geocode.repository.location
 
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import com.vvuono.weatherapp.R
-import com.vvuono.weatherapp.data.repository.LocationRepository
+import com.vvuono.weatherapp.data.repository.location.LocationRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single

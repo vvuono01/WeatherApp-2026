@@ -1,7 +1,7 @@
-package com.vvuono.weatherapp.location.di
+package com.vvuono.weatherapp.api.geocode.di
 
-import com.vvuono.weatherapp.data.repository.LocationRepository
-import com.vvuono.weatherapp.location.repository.GeocodeLocationRepository
+import com.vvuono.weatherapp.api.geocode.repository.location.GeocodeLocationRepository
+import com.vvuono.weatherapp.data.repository.location.LocationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
